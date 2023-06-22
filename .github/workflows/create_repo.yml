@@ -32,11 +32,7 @@ jobs:
             privacy_type=$(grep -Po '(?<=### privacy_type\n\n).*' text.txt)
             project_template=$(grep -Po '(?<=### project_template\n\n).*' text.txt)
             CI_CD=$(grep -Po '(?<=### CI_CD\n\n).*' text.txt)
-            echo "::set-output name=project_name::$project_name"
-            echo "::set-output name=description::$description"
-            echo "::set-output name=privacy_type::$privacy_type"
-            echo "::set-output name=project_template::$project_template"
-            echo "::set-output name=CI_CD::$CI_CD"
+            echo "$project_name"
       - name: Print extracted variables
         run: |
             echo "Project Name: ${{ steps.extract_variables.outputs.project_name }}"
