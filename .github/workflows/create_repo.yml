@@ -78,4 +78,4 @@ jobs:
       - name:
         run: |
           echo "Closing issue"
-          gh issue close ${{ github.event.issue.number }}  -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/devmaua_setup/${{needs.process_issue.outputs.project_name}}) :rocket:"
+          gh issue close ${{ github.event.issue.number }}  -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
