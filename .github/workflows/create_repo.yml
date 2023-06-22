@@ -51,11 +51,11 @@ jobs:
     needs: process_issue
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
+    env:
+      GITHUB_TOKEN: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
 
       - name: Create Repo
         run: |
