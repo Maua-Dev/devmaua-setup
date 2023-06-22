@@ -74,4 +74,3 @@ jobs:
 
           gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
           gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --delete-branch-on-merge
-          gh api -X POST repos/Maua-Dev/${{needs.process_issue.outputs.project_name}}/environments -F name=dev -F production_environment=false -F auto_inactive=false
