@@ -47,25 +47,15 @@ jobs:
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
     steps:
       - name: Create Repo
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{ github.token }}
-          script: |
-            const project_name = process.env.project_name;
-            const description = process.env.description;
-            const privacy_type = process.env.privacy_type;
-            const project_template = process.env.project_template;
-            const CI_CD = process.env.CI_CD;
-            const repo = await github.repos.createInOrg({
-              org: 'sudharsan-selvaraj',
-              name: project_name,
-              description: description,
-              private: privacy_type,
-              visibility: 'public',
-              template: true,
-              gitignore_template: 'Node',
-              license_template: 'mit'
-            });
-            console.log(repo);
-
-        
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /orgs/Maua-Dev/repos \
+          -f name='Hello-World' \
+          -f description='This is your first repository' \
+          -F include_all_branches=false \
+          -F private=true 
