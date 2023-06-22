@@ -28,10 +28,12 @@ jobs:
         run: |
             echo "${{ github.event.issue.body }}" > project_details.txt
             project_name=$(grep -A 2 "### project_name" project_details.txt | tail -n 1)
+            echo ""
             description=$(grep -A 2 "### description" project_details.txt | tail -n 1)
             privacy_type=$(grep -A 2 "### privacy_type" project_details.txt | tail -n 1)
             project_template=$(grep -A 2 "### project_template" project_details.txt | tail -n 1)
             CI_CD=$(grep -A 2 "### CI_CD" project_details.txt | tail -n 1)
+            echo "Project Name: $project_name"
             echo "project_name=$project_name" >> $GITHUB_ENV
             echo "description=$description" >> $GITHUB_ENV
             echo "privacy_type=$privacy_type" >> $GITHUB_ENV
@@ -39,8 +41,8 @@ jobs:
             echo "CI_CD=$CI_CD" >> $GITHUB_ENV
       - name: Print extracted variables
         run: |
-            echo "Project Name: ${{ steps.extract_variables.outputs.project_name }}"
-            echo "Description: ${{ steps.extract_variables.outputs.description }}"
-            echo "Privacy Type: ${{ steps.extract_variables.outputs.privacy_type }}"
-            echo "Project Template: ${{ steps.extract_variables.outputs.project_template }}"
-            echo "CI/CD: ${{ steps.extract_variables.outputs.CI_CD }}"
+            echo "Project Name: ${{ env.project_name }}"
+            echo "Description: ${{ env.description }}"
+            echo "Privacy Type: ${{ env.privacy_type }}"
+            echo "Project Template: ${{ env.project_template }}"
+            echo "CI/CD: ${{ env.CI_CD }}"
