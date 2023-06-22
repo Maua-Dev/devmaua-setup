@@ -33,6 +33,16 @@ body:
         - Private
     validations:
       required: true
+  - type: dropdown
+    id: project_template
+    attributes:
+      label: Project Template
+      description: What template will be used?
+      options:
+        - Public
+        - Private
+    validations:
+      required: true
   # - type: dropdown
   #   id: templates
   #   attributes:
