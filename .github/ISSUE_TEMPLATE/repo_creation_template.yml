@@ -46,11 +46,12 @@ body:
     validations:
       required: false
   - type: dropdown
-    id: teams
+    id: team
     attributes:
-      label: teams
-      description: What teams will be added to the project?
-      multiple: true
+      label: team
+      description: What team will be added to the project?
       options:
         - Back-end
         - Front-end
+    validations:
+      required: true
