@@ -29,8 +29,8 @@ body:
       label: privacy_type
       description: What is the privacy type of the project?
       options:
-        - Public
-        - Private
+        - public
+        - private
     validations:
       required: true
   - type: dropdown
