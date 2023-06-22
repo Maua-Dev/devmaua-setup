@@ -30,6 +30,11 @@ jobs:
           CI_CD=$(grep -A 2 "### CI_CD" project_details.txt | tail -n 1)
           
           echo "Project Name: $project_name"
+          echo "Description: $description"
+          echo "Privacy Type: $privacy_type"
+          echo "Project Template: $project_template"
+          echo "CI_CD: $CI_CD"
+
           echo "project_name=$project_name" >> $GITHUB_ENV
           echo "description=$description" >> $GITHUB_ENV
           echo "privacy_type=$privacy_type" >> $GITHUB_ENV
