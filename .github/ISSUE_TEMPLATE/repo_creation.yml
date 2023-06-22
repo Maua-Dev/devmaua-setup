@@ -15,24 +15,24 @@ body:
       placeholder: ex. devmaua_setup
     validations:
       required: false
-  # - type: textarea
-  #   id: description
-  #   attributes:
-  #     label: Description
-  #     description: What is the project about?
-  #     placeholder: ex. This project is about...
-  #   validations:
-  #     required: true
-  # - type: dropdown
-  #   id: privacy_type
-  #   attributes:
-  #     label: Privacy Type
-  #     description: What is the privacy type of the project?
-  #     options:
-  #       - Public
-  #       - Private
-  #   validations:
-  #     required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the project about?
+      placeholder: ex. This project is about...
+    validations:
+      required: true
+  - type: dropdown
+    id: privacy_type
+    attributes:
+      label: Privacy Type
+      description: What is the privacy type of the project?
+      options:
+        - Public
+        - Private
+    validations:
+      required: true
   # - type: dropdown
   #   id: templates
   #   attributes:
