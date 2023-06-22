@@ -2,8 +2,7 @@ name: Create Repo
 
 on:
   issues:
-    types:
-      - opened
+    types: opened
 
 jobs:
   process_issue:
