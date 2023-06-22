@@ -57,7 +57,7 @@ jobs:
 
       - name: Create Repo
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
           echo "Description: ${{needs.process_issue.outputs.description}}"
