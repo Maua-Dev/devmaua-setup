@@ -27,7 +27,16 @@ jobs:
         id: extract_variables
         run: |
             echo "${{ github.event.issue.body }}" > text.txt
-            cat text.txt
+            project_name=$(grep -Po '(?<=### project_name\n\n).*' text.txt)
+            description=$(grep -Po '(?<=### description\n\n).*' text.txt)
+            privacy_type=$(grep -Po '(?<=### privacy_type\n\n).*' text.txt)
+            project_template=$(grep -Po '(?<=### project_template\n\n).*' text.txt)
+            CI_CD=$(grep -Po '(?<=### CI_CD\n\n).*' text.txt)
+            echo "project_name=$project_name" >> $GITHUB_ENV
+            echo "description=$description" >> $GITHUB_ENV
+            echo "privacy_type=$privacy_type" >> $GITHUB_ENV
+            echo "project_template=$project_template" >> $GITHUB_ENV
+            echo "CI_CD=$CI_CD" >> $GITHUB_ENV
       - name: Print extracted variables
         run: |
             echo "Project Name: ${{ steps.extract_variables.outputs.project_name }}"
