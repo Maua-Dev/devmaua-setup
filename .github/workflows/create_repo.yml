@@ -22,3 +22,22 @@ jobs:
         run: |
           echo "Processing issue with title starting with [NEW_REPO]"
           echo "Issue title: ${{ github.event.issue.comments }}"
+
+      - name: Extract variable values
+        id: extract_variables
+        run: |
+          echo "${{ github.event.issue.comments }}" > text.txt
+          while IFS= read -r line; do
+            if [[ $line =~ ^\#\#\#(.*) ]]; then
+              variable_name="${BASH_REMATCH[1]}"
+              echo "::set-output name=${variable_name// /_}::$(sed -n "/^\#\#\# $variable_name/,/^\#\#\#/p" text.txt | sed '1d;$d')"
+            fi
+          done < text.txt
+      
+      - name: Print extracted variables
+        run: |
+          echo "Project Name: ${{ steps.extract_variables.outputs.project_name }}"
+          echo "Description: ${{ steps.extract_variables.outputs.description }}"
+          echo "Privacy Type: ${{ steps.extract_variables.outputs.privacy_type }}"
+          echo "Project Template: ${{ steps.extract_variables.outputs.project_template }}"
+          echo "CI/CD: ${{ steps.extract_variables.outputs.CI_CD }}"
