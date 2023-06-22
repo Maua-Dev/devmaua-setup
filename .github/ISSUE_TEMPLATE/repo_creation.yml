@@ -51,9 +51,9 @@ body:
       label: CI/CD
       description: What CI/CD tools will be used? [CI/CD](https://github.com/Maua-Dev/ci_workflows_reusable/)
       options:
-        - Bump Version [FLUTTER]
-        - Check PR Owner
-        - Create Automatic PR
-        - Pytest [PYTHON]
+        - label: Bump Version [FLUTTER]
+        - label: Check PR Owner
+        - label: Create Automatic PR
+        - label: Pytest [PYTHON]
     validations:
       required: false
