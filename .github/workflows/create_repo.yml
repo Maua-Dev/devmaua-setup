@@ -78,3 +78,7 @@ jobs:
           else
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
           fi
+      - name:
+        run: |
+          echo "Closing issue"
+          gh issue close ${{ github.event.issue.number }}  -c "Thanks for using the Issue to repo creation! :smile:\n Now you can find your repo at [github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}](github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}})"
