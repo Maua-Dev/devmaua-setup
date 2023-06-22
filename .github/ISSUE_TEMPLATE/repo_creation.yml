@@ -39,22 +39,12 @@ body:
       label: Project Template
       description: What template will be used?
       options:
-        - Public
-        - Private
+        - None
+        - clean_mss_template (PYTHON)
+        - clean_flutter_template (FLUTTER)
+        - clean_front_template (REACT)
     validations:
       required: true
-  # - type: dropdown
-  #   id: templates
-  #   attributes:
-  #     label: templates
-  #     description: What template will be used?
-  #     options:
-  #       - None
-  #       - clean_mss_template (PYTHON)
-  #       - clean_flutter_template (FLUTTER)
-  #       - clean_front_template (REACT)
-  #   validations:
-  #     required: true
   # - type: checkboxes
   #   id: CI_CD
   #   attributes:
