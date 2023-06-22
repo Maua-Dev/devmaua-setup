@@ -40,3 +40,49 @@ jobs:
           echo "privacy_type=$privacy_type" >> $GITHUB_ENV
           echo "project_template=$project_template" >> $GITHUB_ENV
           echo "CI_CD=$CI_CD" >> $GITHUB_ENV
+
+  create_repo:
+    needs: process_issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Repo
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const project_name = process.env.project_name;
+            const description = process.env.description;
+            const privacy_type = process.env.privacy_type;
+            const project_template = process.env.project_template;
+            const CI_CD = process.env.CI_CD;
+
+            const repo = await github.repos.createForAuthenticatedUser({
+              name: project_name,
+              description: description,
+              private: privacy_type,
+              auto_init: true,
+              gitignore_template: project_template,
+              license_template: "mit"
+            });
+
+            const repo_name = repo.data.name;
+            const repo_url = repo.data.html_url;
+
+            const issue_number = github.context.issue.number;
+            const issue_url = github.context.issue.html_url;
+
+            const comment = `Hi @${github.context.actor}, your repository ${repo_name} has been created successfully. You can access it at ${repo_url}. \n\nThis issue will be closed automatically. Feel free to open a new issue if you need any help. \n\nThank you!`;
+
+            await github.issues.createComment({
+              issue_number: issue_number,
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              body: comment
+            });
+
+            await github.issues.update({
+              issue_number: issue_number,
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              state: "closed"
+            });
