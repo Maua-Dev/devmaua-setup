@@ -59,6 +59,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          echo "Creating repo: ${{needs.outputs.project_name}}"
-          echo "Description: ${{needs.outputs.description}}"
-          gh repo create ${{needs.outputs.project_name}} --private --add-readme=true -d "${{needs.outputs.description}}"
+          echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
+          echo "Description: ${{needs.process_issue.outputs.description}}"
+          gh repo create ${{needs.process_issue.outputs.project_name}} --private --add-readme=true -d "${{needs.process_issue.outputs.description}}"
