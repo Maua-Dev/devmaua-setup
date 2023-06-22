@@ -25,6 +25,7 @@ jobs:
 
           project_name=$(grep -A 2 "### project_name" project_details.txt | tail -n 1)
           description=$(grep -A 2 "### description" project_details.txt | tail -n 1)
+          description=$(echo $description | tr -d '\r')
           privacy_type=$(grep -A 2 "### privacy_type" project_details.txt | tail -n 1)
           project_template=$(grep -A 2 "### project_template" project_details.txt | tail -n 1)
           CI_CD=$(grep -A 2 "### CI_CD" project_details.txt | tail -n 1)
