@@ -72,5 +72,9 @@ jobs:
           echo "Project Template: ${{needs.process_issue.outputs.project_template}}"
           echo "CI_CD: ${{needs.process_issue.outputs.CI_CD}}"
 
-          gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
-          gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --delete-branch-on-merge
+          ## create if Project Template is none
+          if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
+            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme
+          else
+            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
+          fi
