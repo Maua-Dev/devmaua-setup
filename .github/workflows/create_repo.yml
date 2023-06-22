@@ -68,4 +68,4 @@ jobs:
           echo "Project Template: ${{needs.process_issue.outputs.project_template}}"
           echo "CI_CD: ${{needs.process_issue.outputs.CI_CD}}"
 
-          gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} --add-readme=true -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template ${{needs.process_issue.outputs.project_template}}
+          gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template ${{needs.process_issue.outputs.project_template}}
