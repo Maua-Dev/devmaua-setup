@@ -44,11 +44,14 @@ jobs:
           echo "Description: $description"
           echo "Privacy Type: $privacy_type"
           echo "Project Template: $project_template"
+          echo "Team: $team"
 
           echo "project_name=$project_name" >> $GITHUB_ENV
           echo "description=$description" >> $GITHUB_ENV
           echo "privacy_type=$privacy_type" >> $GITHUB_ENV
           echo "project_template=$project_template" >> $GITHUB_ENV
+          echo "team=$team" >> $GITHUB_ENV
+          
     outputs:
       project_name: ${{ env.project_name }}
       description: ${{ env.description }}
