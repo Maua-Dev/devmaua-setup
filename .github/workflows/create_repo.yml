@@ -52,10 +52,8 @@ jobs:
       - name: Create Repo
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          PROJECT_NAME: ${{ env.project_name }}
-          DESCRIPTION: ${{ env.description }}
 
         run: |
-          echo "Creating repo $PROJECT_NAME"
-          echo "Description: $DESCRIPTION"
-          gh repo create $PROJECT_NAME --private --add-readme=true -d "$DESCRIPTION"
+          echo "Creating repo: ${{env.project_name}}"
+          echo "Description: ${{env.description}}"
+          gh repo create ${{env.project_name}} --private --add-readme=true -d "${{env.description}}"
