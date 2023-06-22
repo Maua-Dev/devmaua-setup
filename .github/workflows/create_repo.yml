@@ -75,6 +75,7 @@ jobs:
           else
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
           fi
+          gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --default-branch dev --delete-branch-on-merge 
       - name:
         run: |
           echo "Closing issue"
