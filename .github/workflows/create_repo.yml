@@ -46,6 +46,9 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Create Repo
         env:
           GITHUB_TOKEN: ${{ github.token }}
