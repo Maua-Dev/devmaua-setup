@@ -40,6 +40,12 @@ jobs:
           echo "privacy_type=$privacy_type" >> $GITHUB_ENV
           echo "project_template=$project_template" >> $GITHUB_ENV
           echo "CI_CD=$CI_CD" >> $GITHUB_ENV
+    outputs:
+      project_name: ${{ env.project_name }}
+      description: ${{ env.description }}
+      privacy_type: ${{ env.privacy_type }}
+      project_template: ${{ env.project_template }}
+      CI_CD: ${{ env.CI_CD }}
 
   create_repo:
     needs: process_issue
@@ -52,10 +58,7 @@ jobs:
       - name: Create Repo
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          project_name: ${{ env.project_name }}
-          description: ${{ env.description }}
-          
         run: |
-          echo "Creating repo: ${{env.project_name}}"
-          echo "Description: ${{env.description}}"
-          gh repo create ${{env.project_name}} --private --add-readme=true -d "${{env.description}}"
+          echo "Creating repo: ${{needs.outputs.project_name}}"
+          echo "Description: ${{needs.outputs.description}}"
+          gh repo create ${{needs.outputs.project_name}} --private --add-readme=true -d "${{needs.outputs.description}}"
