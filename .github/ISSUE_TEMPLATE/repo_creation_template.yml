@@ -1,6 +1,6 @@
 name: Repo Creation Issue
 description: Create a new repository
-title: "[REPO]: "
+title: "[NEW_REPO]: "
 labels: ["project"]
 body:
   - type: markdown
