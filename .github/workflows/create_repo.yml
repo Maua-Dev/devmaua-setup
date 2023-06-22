@@ -36,25 +36,21 @@ jobs:
           
           project_template=$(grep -A 2 "### project_template" project_details.txt | tail -n 1)
           project_template=$(echo $project_template | cut -d' ' -f1)
-          CI_CD=$(grep -A 2 "### CI_CD" project_details.txt | tail -n 1)
           
           echo "Project Name: $project_name"
           echo "Description: $description"
           echo "Privacy Type: $privacy_type"
           echo "Project Template: $project_template"
-          echo "CI_CD: $CI_CD"
 
           echo "project_name=$project_name" >> $GITHUB_ENV
           echo "description=$description" >> $GITHUB_ENV
           echo "privacy_type=$privacy_type" >> $GITHUB_ENV
           echo "project_template=$project_template" >> $GITHUB_ENV
-          echo "CI_CD=$CI_CD" >> $GITHUB_ENV
     outputs:
       project_name: ${{ env.project_name }}
       description: ${{ env.description }}
       privacy_type: ${{ env.privacy_type }}
       project_template: ${{ env.project_template }}
-      CI_CD: ${{ env.CI_CD }}
 
   create_repo:
     needs: process_issue
@@ -72,7 +68,6 @@ jobs:
           echo "Description: ${{needs.process_issue.outputs.description}}"
           echo "Privacy Type: ${{needs.process_issue.outputs.privacy_type}}"
           echo "Project Template: ${{needs.process_issue.outputs.project_template}}"
-          echo "CI_CD: ${{needs.process_issue.outputs.CI_CD}}"
 
           ## create if Project Template is none
           if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
