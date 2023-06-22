@@ -29,6 +29,7 @@ jobs:
           description=$(echo $description | tr -d '\r')
           privacy_type=$(grep -A 2 "### privacy_type" project_details.txt | tail -n 1)
           project_template=$(grep -A 2 "### project_template" project_details.txt | tail -n 1)
+          project_template=$(echo $project_template | cut -d' ' -f1)
           CI_CD=$(grep -A 2 "### CI_CD" project_details.txt | tail -n 1)
           
           echo "Project Name: $project_name"
@@ -63,4 +64,8 @@ jobs:
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
           echo "Description: ${{needs.process_issue.outputs.description}}"
-          gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --private --add-readme=true -d "${{needs.process_issue.outputs.description}}"
+          echo "Privacy Type: ${{needs.process_issue.outputs.privacy_type}}"
+          echo "Project Template: ${{needs.process_issue.outputs.project_template}}"
+          echo "CI_CD: ${{needs.process_issue.outputs.CI_CD}}"
+
+          gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} --add-readme=true -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template ${{needs.process_issue.outputs.project_template}}
