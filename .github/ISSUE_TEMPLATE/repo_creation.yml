@@ -15,42 +15,42 @@ body:
       placeholder: ex. devmaua_setup
     validations:
       required: false
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: What is the project about?
-      placeholder: ex. This project is about...
-    validations:
-      required: true
-  - type: dropdown
-    id: privacy_type
-    attributes:
-      label: Privacy Type
-      description: What is the privacy type of the project?
-      options:
-        - Public
-        - Private
-    validations:
-      required: true
-  - type: dropdown
-    id: templates
-    attributes:
-      label: Templates
-      options:
-        - None
-        - clean_mss_template [PYTHON]
-        - clean_flutter_template [FLUTTER]
-        - clean_front_template [REACT]
-  - type: checkboxes
-    id: CI_CD
-    attributes:
-      label: CI/CD
-      description: What CI/CD tools will be used? [CI/CD](https://github.com/Maua-Dev/ci_workflows_reusable/)
-      options:
-        - Bump Version [FLUTTER]
-        - Check PR Owner
-        - Create Automatic PR
-        - Pytest [PYTHON]
-      validations:
-        required: false
+  # - type: textarea
+  #   id: description
+  #   attributes:
+  #     label: Description
+  #     description: What is the project about?
+  #     placeholder: ex. This project is about...
+  #   validations:
+  #     required: true
+  # - type: dropdown
+  #   id: privacy_type
+  #   attributes:
+  #     label: Privacy Type
+  #     description: What is the privacy type of the project?
+  #     options:
+  #       - Public
+  #       - Private
+  #   validations:
+  #     required: true
+  # - type: dropdown
+  #   id: templates
+  #   attributes:
+  #     label: Templates
+  #     options:
+  #       - None
+  #       - clean_mss_template [PYTHON]
+  #       - clean_flutter_template [FLUTTER]
+  #       - clean_front_template [REACT]
+  # - type: checkboxes
+  #   id: CI_CD
+  #   attributes:
+  #     label: CI/CD
+  #     description: What CI/CD tools will be used? [CI/CD](https://github.com/Maua-Dev/ci_workflows_reusable/)
+  #     options:
+  #       - Bump Version [FLUTTER]
+  #       - Check PR Owner
+  #       - Create Automatic PR
+  #       - Pytest [PYTHON]
+  #     validations:
+  #       required: false
