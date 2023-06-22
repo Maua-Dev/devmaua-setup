@@ -52,7 +52,9 @@ jobs:
       - name: Create Repo
         env:
           GITHUB_TOKEN: ${{ github.token }}
-
+          project_name: ${{ env.project_name }}
+          description: ${{ env.description }}
+          
         run: |
           echo "Creating repo: ${{env.project_name}}"
           echo "Description: ${{env.description}}"
