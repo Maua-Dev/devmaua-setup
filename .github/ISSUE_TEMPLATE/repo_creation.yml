@@ -34,7 +34,7 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: templates
+    id: project_template
     attributes:
       label: templates
       description: What template will be used?
