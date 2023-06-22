@@ -21,9 +21,4 @@ jobs:
         if: startsWith(github.event.issue.title, '[NEW_REPO]')
         run: |
           echo "Processing issue with title starting with [NEW_REPO]"
-          echo "Issue title: ${{ github.event.issue }}"
-          echo "Project Name ${{ github.event.issue.project_name }}"
-          echo "Project Desc ${{ github.event.issue.project_description }}"
-          echo "Project Visibility ${{ github.event.issue.privacy_type }}"
-          echo "Project Template ${{ github.event.issue.project_template }}"
-          echo "Project Org ${{ github.event.issue.CI_CD }}"
+          echo "Issue title: ${{ github.event.issue.comments }}"
