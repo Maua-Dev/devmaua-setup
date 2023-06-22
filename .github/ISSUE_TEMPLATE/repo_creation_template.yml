@@ -44,16 +44,3 @@ body:
         - clean_front_template (REACT)
     validations:
       required: false
-  - type: dropdown
-    id: CI_CD
-    attributes:
-      label: CI_CD
-      description: What CI/CD tools will be used? [CI/CD](https://github.com/Maua-Dev/ci_workflows_reusable/)
-      multiple: true
-      options:
-        - Bump Version [FLUTTER]
-        - Check PR Owner
-        - Create Automatic PR
-        - Pytest [PYTHON]
-    validations:
-      required: false
