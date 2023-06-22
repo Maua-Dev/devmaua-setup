@@ -21,8 +21,8 @@ jobs:
         if: startsWith(github.event.issue.title, '[NEW_REPO]')
         run: |
           echo "Processing issue with title starting with [NEW_REPO]"
-          
-      - name: Skip issue
-        if: "!startsWith(github.event.issue.title, '[NEW_REPO]')"
-        run: |
-          echo "Skipping issue without title starting with [NEW_REPO]"
+          echo "Project Name ${{ github.event.issue.project_name }}"
+          echo "Project Desc ${{ github.event.issue.project_description }}"
+          echo "Project Visibility ${{ github.event.issue.privacy_type }}"
+          echo "Project Template ${{ github.event.issue.project_template }}"
+          echo "Project Org ${{ github.event.issue.CI_CD }}"
