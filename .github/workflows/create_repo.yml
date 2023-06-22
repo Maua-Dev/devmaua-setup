@@ -27,7 +27,6 @@ jobs:
         id: extract_variables
         run: |
             echo "${{ github.event.issue.body }}" > text.txt
-            cat text.txt
             project_name=$(grep -Po '(?<=### project_name\n\n).*' text.txt)
             description=$(grep -Po '(?<=### description\n\n).*' text.txt)
             privacy_type=$(grep -Po '(?<=### privacy_type\n\n).*' text.txt)
