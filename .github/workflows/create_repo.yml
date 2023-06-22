@@ -54,10 +54,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
 
       - name: Create Repo
-        env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
           echo "Description: ${{needs.process_issue.outputs.description}}"
