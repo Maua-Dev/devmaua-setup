@@ -36,6 +36,9 @@ jobs:
           
           project_template=$(grep -A 2 "### project_template" project_details.txt | tail -n 1)
           project_template=$(echo $project_template | cut -d' ' -f1)
+
+          team=$(grep -A 2 "### team" project_details.txt | tail -n 1)
+          team=$(echo $team | tr -d '\r')
           
           echo "Project Name: $project_name"
           echo "Description: $description"
@@ -51,6 +54,7 @@ jobs:
       description: ${{ env.description }}
       privacy_type: ${{ env.privacy_type }}
       project_template: ${{ env.project_template }}
+      team: ${{ env.team }}
 
   create_repo:
     needs: process_issue
@@ -71,9 +75,9 @@ jobs:
 
           ## create if Project Template is none
           if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
-            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme
+            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme --team ${{needs.process_issue.outputs.team}}
             else
-            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
+            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}} --add-readme --team ${{needs.process_issue.outputs.team}}
             fi
           gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge 
       - name:
