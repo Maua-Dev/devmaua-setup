@@ -25,9 +25,11 @@ jobs:
 
           project_name=$(grep -A 2 "### project_name" project_details.txt | tail -n 1)
           project_name=$(echo $project_name | tr -d '\r')
+          project_name=$(echo $project_name | tr ' ' '_')
 
           description=$(grep -A 2 "### description" project_details.txt | tail -n 1)
           description=$(echo $description | tr -d '\r')
+          description=$(echo $description | tr -d '\n')
 
           privacy_type=$(grep -A 2 "### privacy_type" project_details.txt | tail -n 1)
           privacy_type=$(echo $privacy_type | tr -d '\r')
