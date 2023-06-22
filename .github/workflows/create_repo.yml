@@ -53,12 +53,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh api \
-          --method POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          /orgs/Maua-Dev/repos \
-          -f name='Hello-World' \
-          -f description='This is your first repository' \
-          -F include_all_branches=false \
-          -F private=true 
+          gh repo create $project_name --private --add-readme=true -d "$description"
