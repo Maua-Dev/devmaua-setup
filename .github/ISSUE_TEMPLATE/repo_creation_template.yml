@@ -45,3 +45,12 @@ body:
         - simple_react_template (REACT)
     validations:
       required: false
+  - type: dropdown
+    id: teams
+    attributes:
+      label: teams
+      description: What teams will be added to the project?
+      multiple: true
+      options:
+        - Back-end
+        - Front-end
