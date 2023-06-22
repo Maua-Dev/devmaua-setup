@@ -1,0 +1,29 @@
+name: Create Repo
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  process_issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Print issue title and body
+        run: |
+          echo "Issue title: ${{ github.event.issue.title }}"
+          echo "Issue body: ${{ github.event.issue.body }}"
+          
+      - name: Process issue
+        if: startsWith(github.event.issue.title, '[NEW_REPO]')
+        run: |
+          echo "Processing issue with title starting with [NEW_REPO]"
+          
+      - name: Skip issue
+        if: "!startsWith(github.event.issue.title, '[NEW_REPO]')"
+        run: |
+          echo "Skipping issue without title starting with [NEW_REPO]"
