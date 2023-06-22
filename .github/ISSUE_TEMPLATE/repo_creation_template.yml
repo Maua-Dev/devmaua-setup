@@ -44,7 +44,7 @@ body:
         - clean_flutter_template (FLUTTER)
         - clean_front_template (REACT)
     validations:
-      required: true
+      required: false
   - type: checkboxes
     id: CI_CD
     attributes:
