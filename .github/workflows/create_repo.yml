@@ -21,12 +21,12 @@ jobs:
         if: startsWith(github.event.issue.title, '[NEW_REPO]')
         run: |
           echo "Processing issue with title starting with [NEW_REPO]"
-          echo "Issue title: ${{ github.event.issue.comments }}"
+          echo "${{ github.event.issue.body }}"
 
       - name: Extract variables
         id: extract_variables
         run: |
-            echo "${{ github.event.issue.comments }}" > text.txt
+            echo "${{ github.event.issue.body }}" > text.txt
             cat text.txt
             project_name=$(grep -Po '(?<=### project_name\n\n).*' text.txt)
             description=$(grep -Po '(?<=### description\n\n).*' text.txt)
