@@ -1,6 +1,6 @@
 name: Repo Creation Issue
 description: Create a new repository
-title: "[NEW_REPO]: "
+title: "[NEW_REPO]: Create a new repository in Maua-Dev"
 labels: ["project"]
 body:
   - type: markdown
