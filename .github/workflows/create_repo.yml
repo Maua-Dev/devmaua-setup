@@ -82,7 +82,9 @@ jobs:
             else
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
             fi
-          gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge 
+          gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge
+          gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=push"
+
       - name:
         run: |
           echo "Closing issue"
