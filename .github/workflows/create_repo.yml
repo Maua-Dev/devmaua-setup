@@ -40,8 +40,6 @@ jobs:
           
       - name: Check if issue title starts with [NEW_REPO]
         # if: startsWith(github.event.issue.title, '[NEW_REPO]')
-        env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
         run: |
           echo "Processing issue with title starting with [NEW_REPO]"
           echo "${{ github.event.issue.body }}" > project_details.txt
@@ -80,6 +78,7 @@ jobs:
           repo_name=devmaua_setup
           echo "Adding branch protection to dev branch of $repo_name"
           curl -L \
+          -H "Authorization: Bearer ${{secrets.WORKFLOW_GIT_ACCESS_TOKEN}} "\
           -X PUT \
           -H "Accept: application/vnd.github+json" \
           https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection \
