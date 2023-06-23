@@ -113,7 +113,6 @@ jobs:
           echo "Privacy Type: ${{needs.process_issue.outputs.privacy_type}}"
           echo "Project Template: ${{needs.process_issue.outputs.project_template}}"
 
-          ## create if Project Template is none
           if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme --team ${{needs.process_issue.outputs.team}}
             else
