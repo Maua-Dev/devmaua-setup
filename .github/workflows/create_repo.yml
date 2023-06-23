@@ -23,23 +23,19 @@ jobs:
         run: |
           USERNAME=${{ github.event.issue.user.login }}
           ORG_NAME="Maua-Dev"
-
-          # Fetch user membership information
-          # response=$(curl -s -H "Authorization: Bearer ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}" \
-          #   "https://api.github.com/orgs/$ORG_NAME/members/$USERNAME")
           
           response=$(gh api /orgs/$ORG_NAME/members/$USERNAME)
 
           echo "Response: $response"
 
-
-          # # Check if the user is a member of the organization
-          # if [[ $(echo "$response" | jq -r .message) == "Not Found" ]]; then
-          #   echo "User '$USERNAME' is not a member of the organization."
-          #   exit 1
-          # else
-          #   echo "User '$USERNAME' is a member of the organization."
-          # fi
+          if [ "$response" != "" ]; then
+            echo "User is not a member of the organization"
+            gh issue comment ${{ github.event.issue.number }} -b "Hi @$USERNAME, you are not a member of the organization. Please join the organization before creating a new repo.  "
+            gh issue close ${{ github.event.issue.number }}  -c "User is not a member of the organization ::warning::"
+            exit 1
+          else
+            echo "User is a member of the organization"
+          fi
           
       - name: Check if issue title starts with [NEW_REPO]
         if: startsWith(github.event.issue.title, '[NEW_REPO]')
