@@ -33,7 +33,7 @@ jobs:
             echo "User is a member of the organization."
           fi
           
-      - name: Process issue
+      - name: Check if issue title starts with [NEW_REPO]
         if: startsWith(github.event.issue.title, '[NEW_REPO]')
         run: |
           echo "Processing issue with title starting with [NEW_REPO]"
