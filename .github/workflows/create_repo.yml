@@ -25,7 +25,7 @@ jobs:
           ORG_NAME="Maua-Dev"
           
           # get info from gh api
-          response=$(gh api /orgs/$ORG_NAME/members/$USERNAME || "") 
+          response=$(gh api /orgs/$ORG_NAME/members/$USERNAME | jq -r '.message')) 
 
           echo "Response: $response"
 
