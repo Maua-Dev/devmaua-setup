@@ -14,7 +14,7 @@ body:
       description: What is the name of the project?
       placeholder: ex. devmaua_setup
     validations:
-      required: false
+      required: true
   - type: textarea
     id: description
     attributes:
