@@ -19,7 +19,7 @@ jobs:
 
       - name: Check Organization Membership
         run: |
-          USERNAME="notvgsstudio"
+          USERNAME=${{ github.event.issue.user.login }}
           ORG_NAME="Maua-Dev"
 
           # Fetch user membership information
@@ -28,9 +28,10 @@ jobs:
 
           # Check if the user is a member of the organization
           if [[ $(echo "$response" | jq -r .message) == "Not Found" ]]; then
-            echo "User is not a member of the organization."
+            echo "User '$USERNAME' is not a member of the organization."
+            exit 1
           else
-            echo "User is a member of the organization."
+            echo "User '$USERNAME' is a member of the organization."
           fi
           
       - name: Check if issue title starts with [NEW_REPO]
