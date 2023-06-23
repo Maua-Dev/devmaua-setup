@@ -19,7 +19,7 @@ jobs:
 
       - name: Check Organization Membership
         run: |
-          USERNAME="vgsstudio"
+          USERNAME="notvgsstudio"
           ORG_NAME="Maua-Dev"
 
           # Fetch user membership information
