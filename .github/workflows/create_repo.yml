@@ -114,7 +114,7 @@ jobs:
 
           echo "Adding branch protection to dev branch of $repo_name"
 
-          url = "https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection"
+          url="https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection"
           echo "URL: $url"
 
 
