@@ -19,7 +19,7 @@ jobs:
 
           
           echo "Testando curl"
-          curl -X GET https://api.github.com/users/VgsStudio/repos  
+          
 
       - name: Check Organization Membership
         env:
@@ -121,6 +121,10 @@ jobs:
 
           url="https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection"
           echo "URL: $url"
+
+          echo "Testando curl"
+
+          curl -X GET https://api.github.com/users/VgsStudio/repos  
           
           echo "Usando Curl"
           curl -L \
