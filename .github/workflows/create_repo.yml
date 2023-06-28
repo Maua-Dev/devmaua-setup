@@ -119,15 +119,10 @@ jobs:
 
           echo "Adding branch protection to dev branch of $repo_name"
 
-          url="https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection"
+          url="https://api.github.com/repos/Maua-Dev/devmaua_setup/branches/dev/protection"
           echo "URL: $url"
 
-          echo "Testando curl"
-
-          curl -X GET https://api.github.com/users/VgsStudio/repos  
-          
-          echo "Usando Curl"
-          curl -L \
+          curl -L -vv \
           -X PUT \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}"\
