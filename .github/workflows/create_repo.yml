@@ -108,11 +108,7 @@ jobs:
           if [ "${{needs.process_issue.outputs.team}}" != "None" ]; then
             gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=push"
           fi
-
-  test_repo:
-    runs-on: ubuntu-latest
-    needs: [process_issue, create_repo]
-    steps:     
+          
       - name: Add Branch Protection
         run: |
           repo_name=${{needs.process_issue.outputs.project_name}}
@@ -130,7 +126,7 @@ jobs:
           $url \
           -d '{"required_status_checks":{"strict":true,"contexts":["continuous-integration/travis-ci"]},"enforce_admins":true,"required_pull_request_reviews":{"dismissal_restrictions":{"users":["octocat"],"teams":["justice-league"]},"dismiss_stale_reviews":true,"require_code_owner_reviews":true,"required_approving_review_count":2,"bypass_pull_request_allowances":{"users":["octocat"],"teams":["justice-league"]}},"restrictions":{"users":["octocat"],"teams":["justice-league"]}}'        
 
-      # - name:
-      #   run: |
-      #     echo "Closing issue"
-      #     gh issue close ${{ github.event.issue.number }}  -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
+      - name:
+        run: |
+          echo "Closing issue"
+          gh issue close ${{ github.event.issue.number }}  -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
