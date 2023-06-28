@@ -54,4 +54,4 @@ body:
         - Back-end
         - Front-end
     validations:
-      required: true
+      required: false
