@@ -98,16 +98,16 @@ jobs:
           echo "Privacy Type: ${{needs.process_issue.outputs.privacy_type}}"
           echo "Project Template: ${{needs.process_issue.outputs.project_template}}"
 
-          if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
-            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme
-            else
-            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
-            fi
-          gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge
+          # if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
+          #   gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme
+          #   else
+          #   gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
+          #   fi
+          # gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge
 
-          if [ "${{needs.process_issue.outputs.team}}" != "None" ]; then
-            gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=push"
-          fi
+          # if [ "${{needs.process_issue.outputs.team}}" != "None" ]; then
+          #   gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=push"
+          # fi
           
       - name: Add Branch Protection
         run: |
@@ -119,11 +119,11 @@ jobs:
           echo "URL: $url"
           
           curl -L \
-          -X PUT \
+          -X GET \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}"\
+          # -H "Authorization: Bearer ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}"\
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          $url \
+          https://api.github.com/users/VgsStudio/repos \
           -d '{"required_status_checks":{"strict":true,"contexts":["continuous-integration/travis-ci"]},"enforce_admins":true,"required_pull_request_reviews":{"dismissal_restrictions":{"users":["octocat"],"teams":["justice-league"]},"dismiss_stale_reviews":true,"require_code_owner_reviews":true,"required_approving_review_count":2,"bypass_pull_request_allowances":{"users":["octocat"],"teams":["justice-league"]}},"restrictions":{"users":["octocat"],"teams":["justice-league"]}}'        
 
       - name:
