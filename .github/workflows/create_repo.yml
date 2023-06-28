@@ -110,10 +110,11 @@ jobs:
           repo_name=${{needs.process_issue.outputs.project_name}}
 
           echo "Adding branch protection to dev branch of $repo_name"
-          echo "Authorization: Bearer ${{ vars.SOLLER_TOKEN }}"
+          echo "Authorization: Bearer"
+          echo "Authorization: Bearer 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"
           
           curl -L \
-          -H "Authorization: Bearer ${{ vars.SOLLER_TOKEN }}"\
+          -H "Authorization: Bearer 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"\
           -X PUT \
           -H "Accept: application/vnd.github+json" \
           https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection \
