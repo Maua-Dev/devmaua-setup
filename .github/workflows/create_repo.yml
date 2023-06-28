@@ -17,6 +17,10 @@ jobs:
           echo "Issue title: ${{ github.event.issue.title }}"
           echo "Issue body: ${{ github.event.issue.body }}"
 
+          
+          echo "Testando curl"
+          curl -X GET https://api.github.com/users/VgsStudio/repos  
+
       - name: Check Organization Membership
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
@@ -117,9 +121,6 @@ jobs:
 
           url="https://api.github.com/repos/Maua-Dev/$repo_name/branches/dev/protection"
           echo "URL: $url"
-
-          echo "Testando curl"
-          curl -X GET -H "Authorization: Bearer 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" https://api.github.com/users/VgsStudio/repos  
           
           echo "Usando Curl"
           curl -L \
