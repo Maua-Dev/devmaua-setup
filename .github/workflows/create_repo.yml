@@ -135,7 +135,8 @@ jobs:
         run: |
           repo_name=${{needs.process_issue.outputs.project_name}}
 
-
+          echo "Token: ${{ env.token }}"
+                    
           curl -i \
           -H "Authorization: Bearer ${{ env.token }}" \
           -H "Accept: application/vnd.github.v3+json" \
@@ -159,4 +160,4 @@ jobs:
           GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
           echo "Closing issue"
-          gh issue close ${{ github.event.issue.number }}  -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
+          gh issue close 3 -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
