@@ -10,6 +10,27 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   github-app:
-    uses: maua-dev/ci_workflows_reusable/.github/workflows/github-app.yml@main
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v2
+        with:
+          application_id: ${{ secrets.SETUP_APP_ID }}
+          application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: Maua-Dev/ci_workflows_reusable
+          toke: ${{ steps.get_workflow_token.outputs.token }}
+          path: ./lib
+      - name: get jwt
+        run: |
+          token=$(./lib/github-app-token.sh)
+          echo $token
+          echo "token=$token" >> $GITHUB_OUTPUT
+        env:
+          APP_ID: ${{ secrets.SETUP_APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
+      
       
