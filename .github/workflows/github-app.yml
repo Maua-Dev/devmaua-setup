@@ -11,6 +11,5 @@ jobs:
   # This workflow contains a single job called "build"
   github-app:
     uses: maua-dev/ci_workflows_reusable/.github/workflows/github-app.yml@main
-    with:
-      secrets: inherit
+    secrets: inherit
       
