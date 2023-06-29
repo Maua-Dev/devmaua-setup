@@ -94,13 +94,19 @@ jobs:
     needs: process_issue
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
-    env:
-      GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
     steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v2
+        with:
+          application_id: ${{ secrets.SETUP_APP_ID }}
+          application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Create Repo
+        env:
+          GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
           echo "Description: ${{needs.process_issue.outputs.description}}"
