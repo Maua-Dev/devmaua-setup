@@ -23,8 +23,9 @@ jobs:
         with:
           repository: Maua-Dev/ci_workflows_reusable
           toke: ${{ steps.get_workflow_token.outputs.token }}
-          path: ./lib
+          path: lib
       - name: get jwt
+        working-directory: lib
         run: |
           ls -a
           token=$(./github-app-token.sh)
