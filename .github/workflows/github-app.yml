@@ -27,7 +27,7 @@ jobs:
         working-directory: lib
         run: |
           ls -a
-          token=$(./lib/github-app-token.sh)
+          token=$(./github-app-token.sh)
           echo $token
           echo "token=$token" >> $GITHUB_OUTPUT
         env:
