@@ -92,13 +92,14 @@ jobs:
       privacy_type: ${{ env.privacy_type }}
       project_template: ${{ env.project_template }}
       team: ${{ env.team }}
+      token: ${{ env.GITHUB_TOKEN }}
 
   create_repo:
     needs: process_issue
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
     env:
-      GITHUB_TOKEN: ${{ needs.get_token.outputs.token }}
+      GITHUB_TOKEN: ${{ needs.process_issue.outputs.token }}
     steps:
       - name: Create Repo
         run: |
