@@ -5,7 +5,7 @@ on:
     types: [opened, edited]
 
 jobs:
-  get_token:
+  process_issue:
     runs-on: ubuntu-latest
     steps:
       - name: Get Token
@@ -14,14 +14,9 @@ jobs:
         with:
           application_id: ${{ secrets.SETUP_APP_ID }}
           application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
-    outputs:
-      token: ${{ steps.get_workflow_token.outputs.token }}
-  process_issue:
-    needs: get_token
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ needs.get_token.outputs.token }}
-    steps:
+      - name: Set Token
+        run: |
+          echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
       - name: Checkout repository
         uses: actions/checkout@v2
       
@@ -91,15 +86,21 @@ jobs:
       privacy_type: ${{ env.privacy_type }}
       project_template: ${{ env.project_template }}
       team: ${{ env.team }}
-      token: ${{ env.GITHUB_TOKEN }}
 
   create_repo:
     needs: process_issue
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
-    env:
-      GITHUB_TOKEN: ${{ needs.process_issue.outputs.token }}
     steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v2
+        with:
+          application_id: ${{ secrets.SETUP_APP_ID }}
+          application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
+      - name: Set Token
+        run: |
+          echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
       - name: Create Repo
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
