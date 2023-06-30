@@ -7,8 +7,6 @@ on:
 jobs:
   get_token:
     runs-on: ubuntu-latest
-    outputs:
-      token: ${{ steps.get_workflow_token.outputs.token }}
     steps:
       - name: Get Token
         id: get_workflow_token
@@ -16,7 +14,8 @@ jobs:
         with:
           application_id: ${{ secrets.SETUP_APP_ID }}
           application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
-      
+    outputs:
+      token: ${{ steps.get_workflow_token.outputs.token }}
   process_issue:
     needs: get_token
     runs-on: ubuntu-latest
