@@ -148,4 +148,4 @@ jobs:
           GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
           echo "Closing issue"
-          gh issue close 3 -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
+          gh issue close ${{ github.event.issue.number }} -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
