@@ -111,16 +111,18 @@ jobs:
           if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme
             else
-            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --include-all-branches --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
+            gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
             fi
           gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge
 
           if [ "${{needs.process_issue.outputs.team}}" != "None" ]; then
             gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=push"
           fi
-      - name: Check Repo Created
-        run: |
-          gh api -H "Accept: application/vnd.github.v3+json" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: Maua-Dev/${{needs.process_issue.outputs.project_name}}
 
       - name: Add Branch Protection Dev
         run: |
@@ -153,9 +155,23 @@ jobs:
               "lock_branch": false,
               "allow_fork_syncing": false
             }'
+  close_issue:
+    needs: create_repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v2
+        with:
+          application_id: ${{ secrets.SETUP_APP_ID }}
+          application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
+      - name: Set Token
+        run: |
+          echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Close Issue
         run: |
           echo "Closing issue"
           gh issue close ${{ github.event.issue.number }} -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
+
