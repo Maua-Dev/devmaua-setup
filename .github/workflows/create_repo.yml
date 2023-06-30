@@ -124,7 +124,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          repository: "Maua-Dev/$repo_name"
+          repository: "Maua-Dev/${{needs.process_issue.outputs.project_name}}"
 
       - name: Add Branch Protection Dev
         run: |
