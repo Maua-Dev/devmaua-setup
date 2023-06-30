@@ -123,6 +123,11 @@ jobs:
         run: |
           repo_name=${{needs.process_issue.outputs.project_name}}
           
+          gh api \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/Maua-Dev/$repo_name/branches/dev/protection"
+
           curl -vv -L \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
