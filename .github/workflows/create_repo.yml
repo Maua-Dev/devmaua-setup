@@ -125,7 +125,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: "Maua-Dev/${{needs.process_issue.outputs.project_name}}"
-
+      - name: Set Token
+        run: |
+            echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
+            
       - name: Add Branch Protection Dev
         run: |
           
