@@ -91,6 +91,8 @@ jobs:
     needs: process_issue
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, '[NEW_REPO]')
+    env:
+      repo_name: ${{needs.process_issue.outputs.project_name}}
     steps:
       - name: Get Token
         id: get_workflow_token
@@ -110,7 +112,7 @@ jobs:
 
           if [ "${{needs.process_issue.outputs.project_template}}" == "None" ]; then
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --add-readme
-            else
+          else
             gh repo create Maua-Dev/${{needs.process_issue.outputs.project_name}} --${{needs.process_issue.outputs.privacy_type}} -d "${{needs.process_issue.outputs.description}}" --template Maua-Dev/${{needs.process_issue.outputs.project_template}}
             fi
           gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge
@@ -122,11 +124,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          repository: Maua-Dev/${{needs.process_issue.outputs.project_name}}
+          repository: "Maua-Dev/$repo_name"
 
       - name: Add Branch Protection Dev
         run: |
-          repo_name=${{needs.process_issue.outputs.project_name}}
           
           curl -vv -L \
             -X PUT \
@@ -155,6 +156,92 @@ jobs:
               "lock_branch": false,
               "allow_fork_syncing": false
             }'
+      - name: Create Homolog
+        run: |
+          sha_ref=$(gh api \
+            --method GET \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/Maua-Dev/$repo_name/git/refs/heads/dev" | jq -r '.object.sha')
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/Maua/$repo_name/git/refs" \
+            -f ref='refs/heads/homolog' \
+            -f sha=$sha_ref
+      - name: Add Branch Protection Homolog
+        run: |
+          curl -vv -L \
+            -X PUT \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ env.GITHUB_TOKEN }}"\
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/Maua-Dev/$repo_name/branches/homolog/protection" \
+            -d '{
+              "required_status_checks": {
+                "strict": true,
+                "contexts": ["check_owner/Check & Validate PR Owner"]
+              },
+              "enforce_admins": false,
+              "required_pull_request_reviews": {
+                "dismiss_stale_reviews": false,
+                "require_code_owner_reviews": false,
+                "required_approving_review_count": 1,
+                "require_last_push_approval": false
+              },
+              "restrictions": null,
+              "required_linear_history": false,
+              "allow_force_pushes": false,
+              "allow_deletions": false,
+              "block_creations": false,
+              "required_conversation_resolution": false,
+              "lock_branch": false,
+              "allow_fork_syncing": false
+            }'
+      - name: Create Production
+        run: |
+          sha_ref=$(gh api \
+            --method GET \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/Maua-Dev/$repo_name/git/refs/heads/prod" | jq -r '.object.sha')
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/Maua/$repo_name/git/refs" \
+            -f ref='refs/heads/production' \
+            -f sha=$sha_ref
+      - name: Add Branch Protection Homolog
+        run: |
+          curl -vv -L \
+            -X PUT \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ env.GITHUB_TOKEN }}"\
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/Maua-Dev/$repo_name/branches/prod/protection" \
+            -d '{
+              "required_status_checks": {
+                "strict": true,
+                "contexts": ["check_owner/Check & Validate PR Owner"]
+              },
+              "enforce_admins": false,
+              "required_pull_request_reviews": {
+                "dismiss_stale_reviews": false,
+                "require_code_owner_reviews": false,
+                "required_approving_review_count": 1,
+                "require_last_push_approval": false
+              },
+              "restrictions": null,
+              "required_linear_history": false,
+              "allow_force_pushes": false,
+              "allow_deletions": false,
+              "block_creations": false,
+              "required_conversation_resolution": false,
+              "lock_branch": false,
+              "allow_fork_syncing": false
+            }'  
   close_issue:
     needs: create_repo
     runs-on: ubuntu-latest
