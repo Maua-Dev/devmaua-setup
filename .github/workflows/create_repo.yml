@@ -151,7 +151,9 @@ jobs:
       - name: Add Branch Protection Dev
         if: ${{startsWith(needs.process_issue.outputs.privacy_type, 'private')}}
         run: |
-
+        
+          echo "${{ startsWith(needs.process_issue.outputs.privacy_type, 'private') }}"
+          
           if [ "${{needs.process_issue.outputs.privacy_type}}" == "private" ]; then
             echo "Repo is private"
             exit 1
