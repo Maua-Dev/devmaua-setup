@@ -305,8 +305,10 @@ jobs:
 
           message="Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
           
+          echo "message=$message" >> $GITHUB_ENV
+
     outputs:
-      message: $message
+      message: ${{ env.message }}
 
   close_issue:
     needs: create_repo
@@ -329,4 +331,7 @@ jobs:
       - name: Close Issue
         run: |
           echo "Closing issue"
+          echo "Issue number: ${{ github.event.issue.number }}"
+          echo "Message: ${{ needs.create_repo.outputs.message }}"
+
           gh issue close ${{ github.event.issue.number }} -c ${{ needs.create_repo.outputs.message }}
