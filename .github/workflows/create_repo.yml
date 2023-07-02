@@ -103,6 +103,20 @@ jobs:
       - name: Set Token
         run: |
           echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
+
+      - name: Verify repo
+        run: |
+            verify_repo=$(gh api /repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} | jq -r '.message')
+            echo "Verify Repo: $verify_repo"
+            if [ "$verify_repo" != "Not Found" ]; then
+              echo "Repo already exists"
+              gh issue comment ${{ github.event.issue.number }} -b "Hi @$USERNAME, the repo already exists. Please check the repo name and try again.  "
+              gh issue close ${{ github.event.issue.number }}  -c "Repo already exists :warning:"
+              exit 1
+            else
+              echo "Repo does not exist"
+            fi
+            
       - name: Create Repo
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
