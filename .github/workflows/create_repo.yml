@@ -1,8 +1,8 @@
-name: Create Repo
+name: Issue Handler
 
 on:
   issues:
-    types: [opened, edited]
+    types: opened
 
 jobs:
   process_issue:
