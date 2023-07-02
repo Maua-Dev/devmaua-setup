@@ -181,6 +181,8 @@ jobs:
 
       - name: Add Branch Protection Homolog
         run: |
+          echo "Adding Branch Protection Homolog"
+          
           curl -vv -L \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
