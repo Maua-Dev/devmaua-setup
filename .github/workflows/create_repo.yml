@@ -112,7 +112,7 @@ jobs:
       - name: Verify repo
         run: |
             USERNAME=${{ github.event.issue.user.login }}
-            
+
             verify_repo=$(gh api /repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} | jq -r '.message')
             echo "Verify Repo: $verify_repo"
             if [ "$verify_repo" != "Not Found" ]; then
@@ -298,7 +298,16 @@ jobs:
         
           gh api --method PUT -H "Accept: application/vnd.github+json" \
           repos/Maua-Dev/$repo_name/environments/prod
+
+      - name: End message
+        run: |
+          echo "Finished creating repo"
+
+          message="Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
           
+    outputs:
+      message: $message
+
   close_issue:
     needs: create_repo
     runs-on: ubuntu-latest
@@ -309,13 +318,15 @@ jobs:
         with:
           application_id: ${{ secrets.SETUP_APP_ID }}
           application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
+          
       - name: Set Token
         run: |
           echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
+
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Close Issue
         run: |
           echo "Closing issue"
-          gh issue close ${{ github.event.issue.number }} -c "Thanks for using the Issue to repo creation! :smile: Now you can find your repo at [${{needs.process_issue.outputs.project_name}}](https://github.com/Maua-Dev/${{needs.process_issue.outputs.project_name}}) :rocket:"
-
+          gh issue close ${{ github.event.issue.number }} -c ${{ needs.create_repo.outputs.message }}
