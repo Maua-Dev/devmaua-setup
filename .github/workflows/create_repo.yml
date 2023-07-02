@@ -145,6 +145,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
+          token: ${{ env.GITHUB_TOKEN }}
           repository: "Maua-Dev/${{needs.process_issue.outputs.project_name}}"
 
       - name: Add Branch Protection Dev
