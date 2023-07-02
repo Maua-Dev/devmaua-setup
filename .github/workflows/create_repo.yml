@@ -106,8 +106,8 @@ jobs:
         run: |
           echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Verify repo
         run: |
@@ -318,7 +318,7 @@ jobs:
         with:
           application_id: ${{ secrets.SETUP_APP_ID }}
           application_private_key: ${{ secrets.SETUP_APP_PRIVATE_KEY }}
-          
+
       - name: Set Token
         run: |
           echo "GITHUB_TOKEN=${{ steps.get_workflow_token.outputs.token }}" >> $GITHUB_ENV
