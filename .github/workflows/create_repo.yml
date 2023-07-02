@@ -149,7 +149,7 @@ jobs:
           repository: "Maua-Dev/${{needs.process_issue.outputs.project_name}}"
 
       - name: Add Branch Protection Dev
-        if: contains(needs.process_issue.outputs.privacy_type, 'private')
+        if: startsWith(needs.process_issue.outputs.privacy_type, 'private')
         run: |
 
           if [ "${{needs.process_issue.outputs.privacy_type}}" == "private" ]; then
@@ -210,7 +210,7 @@ jobs:
 
 
       - name: Add Branch Protection Homolog
-        if: contains(needs.process_issue.outputs.privacy_type, 'private')
+        if: startsWith(needs.process_issue.outputs.privacy_type, 'private')
         run: |
           echo "Adding Branch Protection Homolog"
 
@@ -265,7 +265,7 @@ jobs:
 
 
       - name: Add Branch Protection Production
-        if: contains(needs.process_issue.outputs.privacy_type, 'private')
+        if: startsWith(needs.process_issue.outputs.privacy_type, 'private')
         run: |
           echo "Adding Branch Protection Production"
           
@@ -298,7 +298,7 @@ jobs:
             }'
 
       - name: Create environments
-        if: contains(needs.process_issue.outputs.privacy_type, 'private')
+        if: startsWith(needs.process_issue.outputs.privacy_type, 'private')
         env: 
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         run: |
