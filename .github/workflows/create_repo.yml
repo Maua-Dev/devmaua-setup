@@ -54,6 +54,7 @@ jobs:
           project_name=$(echo $project_name | tr -d '\r')
           project_name=$(echo $project_name | tr ' ' '_')
           project_name=$(echo $project_name | tr '[:upper:]' '[:lower:]')
+          project_name=$(echo $project_name | sed 's/[^a-zA-Z0-9_]//g')
 
           description=$(grep -A 2 "### description" project_details.txt | tail -n 1)
           description=$(echo $description | tr -d '\r')
@@ -116,7 +117,7 @@ jobs:
             else
               echo "Repo does not exist"
             fi
-            
+
       - name: Create Repo
         run: |
           echo "Creating repo: ${{needs.process_issue.outputs.project_name}}"
