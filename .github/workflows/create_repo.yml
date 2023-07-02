@@ -151,6 +151,13 @@ jobs:
       - name: Add Branch Protection Dev
         if: ${{needs.process_issue.outputs.privacy_type}} != "private"
         run: |
+
+          if [ "${{needs.process_issue.outputs.privacy_type}}" == "private" ]; then
+            echo "Repo is private"
+            exit 1
+          fi
+          
+
           
           curl -vv -L \
             -X PUT \
