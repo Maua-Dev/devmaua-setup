@@ -160,8 +160,7 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         run: |
-          echo "Repo Name: $repo_name"
-
+          
           echo "Creating Homolog Branch"
 
           echo "Getting SHA from dev branch"
