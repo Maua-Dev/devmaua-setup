@@ -263,7 +263,20 @@ jobs:
               "lock_branch": false,
               "allow_fork_syncing": false
             }'
-            
+
+      - name: Create environments
+        env: 
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        run: |
+          gh api --method PUT -H "Accept: application/vnd.github+json" \
+          repos/Maua-Dev/$repo_name/environments/dev
+
+          gh api --method PUT -H "Accept: application/vnd.github+json" \
+          repos/Maua-Dev/$repo_name/environments/homolog
+        
+          gh api --method PUT -H "Accept: application/vnd.github+json" \
+          repos/Maua-Dev/$repo_name/environments/prod
+          
   close_issue:
     needs: create_repo
     runs-on: ubuntu-latest
