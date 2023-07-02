@@ -334,4 +334,4 @@ jobs:
           echo "Issue number: ${{ github.event.issue.number }}"
           echo "Message: ${{ needs.create_repo.outputs.message }}"
 
-          gh issue close ${{ github.event.issue.number }} -c ${{ needs.create_repo.outputs.message }}
+          gh issue close ${{ github.event.issue.number }} -c "${{ needs.create_repo.outputs.message }}"
