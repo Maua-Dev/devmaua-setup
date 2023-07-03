@@ -304,9 +304,26 @@ jobs:
           gh api --method PUT -H "Accept: application/vnd.github+json" \
           repos/Maua-Dev/$repo_name/environments/prod
 
+      - name: Getting team id
+        if: startsWith(needs.process_issue.outputs.privacy_type, 'public')
+        env: 
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        run: |
+          echo "Getting team id"
+
+          team_id=$(gh api \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/orgs/Maua-Dev/teams/Admins-repo" | jq -r '.id')
+
+          echo "Team id: $team_id"
+          echo "team_id=$team_id" >> $GITHUB_ENV
+
       - name: Assign reviewers to Production environment
         if: startsWith(needs.process_issue.outputs.privacy_type, 'public')
         run: |
+
+          
 
           echo "Assigning reviewer to $repo_name"
 
@@ -316,7 +333,7 @@ jobs:
             -H "Authorization: Bearer ${{ env.GITHUB_TOKEN }}"\
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/repos/Maua-Dev/$repo_name/environments/prod" \
-            -d '{"reviewers":[{"type":"Team","id":${{ secrets.TEAM_ID}}}]}'
+            -d '{"reviewers":[{"type":"Team","id":${{ env.team_id }}}]}'
 
       - name: End message
         run: |
