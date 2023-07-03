@@ -303,7 +303,7 @@ jobs:
         
           gh api --method PUT -H "Accept: application/vnd.github+json" \
           repos/Maua-Dev/$repo_name/environments/prod \
-          -d '{"reviewers": ["type": "Team", "id": ${{ secrets.TEAM_ID }}]}'
+           '{"reviewers": ["type": "Team", "id": ${{ secrets.TEAM_ID }}]}'
 
 
       - name: End message
