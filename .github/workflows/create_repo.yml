@@ -139,7 +139,7 @@ jobs:
           gh repo edit Maua-Dev/${{needs.process_issue.outputs.project_name}} --enable-issues --delete-branch-on-merge
 
           if [ "${{needs.process_issue.outputs.team}}" != "None" ]; then
-            gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=write"
+            gh api -X PUT /orgs/Maua-Dev/teams/${{needs.process_issue.outputs.team}}/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=push"
           fi
           
           gh api -X PUT /orgs/Maua-Dev/teams/Admins-repo/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=admin"
