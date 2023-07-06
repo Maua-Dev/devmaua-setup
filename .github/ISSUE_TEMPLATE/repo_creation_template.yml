@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        To create a new repository, please fill out the following information.
+        To create a new repository, please fill out the following information. Please note that the project name must be unique and the description must be clear and concise. Do not change the issue title starting with [NEW_REPO].
   - type: input
     id: project_name
     attributes:
