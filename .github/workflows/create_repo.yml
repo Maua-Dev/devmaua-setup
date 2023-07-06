@@ -143,7 +143,15 @@ jobs:
           fi
           
           gh api -X PUT /orgs/Maua-Dev/teams/Admins-repo/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=admin"
-          
+        
+          USERNAME=${{ github.event.issue.user.login }}
+
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/Maua-Dev/${{needs.process_issue.outputs.project_name}}/collaborators/$USERNAME\
+            -f permission='admin' 
 
 
       - name: Checkout repository
