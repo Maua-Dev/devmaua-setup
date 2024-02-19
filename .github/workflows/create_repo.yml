@@ -143,7 +143,8 @@ jobs:
           fi
           
           gh api -X PUT /orgs/Maua-Dev/teams/Admins-repo/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=admin"
-        
+          gh api -X PUT /orgs/Maua-Dev/teams/Heads/repos/Maua-Dev/${{needs.process_issue.outputs.project_name}} --raw-field "permission=admin"
+          
           USERNAME=${{ github.event.issue.user.login }}
 
           gh api \
