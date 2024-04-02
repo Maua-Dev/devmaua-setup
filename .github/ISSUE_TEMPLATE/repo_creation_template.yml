@@ -47,7 +47,7 @@ body:
         - clean_front_template (REACT)
         - simple_react_template (REACT)
         - vite_react_template (REACT)
-        - dev_in_the_dark (HTML/CSS)
+        - dev_in_the_dark_template (HTML/CSS)
     validations:
       required: false
   - type: dropdown
