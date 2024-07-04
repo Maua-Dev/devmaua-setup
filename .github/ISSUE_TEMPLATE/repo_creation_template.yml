@@ -48,6 +48,7 @@ body:
         - simple_react_template (REACT)
         - vite_react_template (REACT)
         - dev_in_the_dark_template (HTML/CSS)
+        - battlesnake_nodejs_template (TYPESCRIPT)
     validations:
       required: false
   - type: dropdown
