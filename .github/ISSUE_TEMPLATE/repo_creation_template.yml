@@ -49,6 +49,7 @@ body:
         - vite_react_template (REACT)
         - dev_in_the_dark_template (HTML/CSS)
         - battlesnake_nodejs_template (TYPESCRIPT)
+        - hexagonal_arch_react_template (REACT)
     validations:
       required: false
   - type: dropdown
