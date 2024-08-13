@@ -19,3 +19,7 @@ Anyone who wants to create a new repository for Dev. Community Mauá. 🦧
 - Hector Guerrini - [hectorguerrini](https://github.com/hectorguerrini) 🧙‍♂️
 - João Branco - [JoaoVitorBranco](https://github.com/JoaoVitorBranco) 😎
 - Vitor Soller - [VgsStudio](https://github.com/VgsStudio) 🌞
+- Enrico Santarelli - [EnricoSantarelli](https://github.com/EnricoSantarelli)🐻
+- Rodrigo Morales - [RodrigoM2004](https://github.com/RodrigoM2004) 🤯
+- Luigi Trevisan - [LuigiTrevisan](https://github.com/LuigiTrevisan) 🍄
+- Rodrigo Siqueira [Rodrigosiq03](https://github.com/Rodrigosiq03) 🌿
