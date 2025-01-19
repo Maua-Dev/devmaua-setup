@@ -50,6 +50,7 @@ body:
         - dev_in_the_dark_template (HTML/CSS)
         - battlesnake_nodejs_template (TYPESCRIPT)
         - hexagonal_arch_react_template (REACT)
+        - challenge_template (PYTHON)
     validations:
       required: false
   - type: dropdown
