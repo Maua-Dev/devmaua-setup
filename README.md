@@ -1,5 +1,5 @@
 # Dev. Community Mauá - Setup 🔨
-This repository contains the scripts to setup a new development repository for Dev. Community Mauá. 😎
+This repository contains the scripts to setup a new development repository for Dev. Community Mauá. 😎😎
 
 ## Why this repository? 🤔
 This repository was created to automate some processes for Dev. Community Mauá. 🤖
